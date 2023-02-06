@@ -18,8 +18,7 @@ const getOneBook = async (req, res) => {
 const createBook = async (req, res) => {
     const book = new Book(req.body);
     await book.save();
-    console.log(book);
-    return book;
+    res.send('Book created: ' + book);
 }
 
 // Update a book
@@ -27,13 +26,14 @@ const updateBook = async (req, res) => {
     const { id } = req.params;
     const book = await Book.findByIdAndUpdate(id, { ...req.body });
     await book.save();
-    return book;
+    res.send('Book updated: ' + book);
 }
 
 // Delete a book
 const deleteBook = async (req, res) => {
     const { id } = req.params;
     await Book.findByIdAndDelete(id);
+    res.send(`Book deleted`);
 }
 
 module.exports = { getAllBooks, getOneBook, createBook, updateBook, deleteBook };
